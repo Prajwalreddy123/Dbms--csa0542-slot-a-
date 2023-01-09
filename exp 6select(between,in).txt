@@ -1,0 +1,84 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use atm;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_atm |
++---------------+
+| atm           |
+| bank          |
++---------------+
+2 rows in set (0.00 sec)
+
+mysql> alter table atm add location varchar(10);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> update atm set location="chennai" where name="sai";
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update atm set location="goa" where name="gg";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update atm set location="delhi" where name="fs";
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from atm;
++------+------+--------+--------+----------+
+| name | age  | branch | card   | location |
++------+------+--------+--------+----------+
+| fs   |   24 | axis   | credit | delhi    |
+| gg   |   20 | sbi    | rupay  | goa      |
+| sai  |   20 | indian | dedit  | chennai  |
++------+------+--------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select*from atm where age between 10 and 21;
++------+------+--------+-------+----------+
+| name | age  | branch | card  | location |
++------+------+--------+-------+----------+
+| gg   |   20 | sbi    | rupay | goa      |
+| sai  |   20 | indian | dedit | chennai  |
++------+------+--------+-------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select*from atm where card in('credit');
++------+------+--------+--------+----------+
+| name | age  | branch | card   | location |
++------+------+--------+--------+----------+
+| fs   |   24 | axis   | credit | delhi    |
++------+------+--------+--------+----------+
+1 row in set (0.00 sec)
+
+mysql> select max(age) as maximum from atm;
++---------+
+| maximum |
++---------+
+|      24 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select min(age) as minimum from bank;
+ERROR 1054 (42S22): Unknown column 'age' in 'field list'
+mysql> select min(age) as minimum from atm;
++---------+
+| minimum |
++---------+
+|      20 |
++---------+
+1 row in set (0.00 sec)
