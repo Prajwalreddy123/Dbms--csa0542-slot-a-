@@ -1,0 +1,122 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 31
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use atm;
+Database changed
+mysql> create table movies(sno int(2),name varchar(10),followers int(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into movies values(1,'alluarjun',250000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into movies value(2,'prabhas',650000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into movies value(3,'mahesh',850000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from movies;
++------+-----------+-----------+
+| sno  | name      | followers |
++------+-----------+-----------+
+|    1 | alluarjun |    250000 |
+|    2 | prabhas   |    650000 |
+|    3 | mahesh    |    850000 |
++------+-----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> start transcation;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'transcation' at line 1
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> savepoint ini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into movies values(4,'balayya',980000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from movies;
++------+-----------+-----------+
+| sno  | name      | followers |
++------+-----------+-----------+
+|    1 | alluarjun |    250000 |
+|    2 | prabhas   |    650000 |
+|    3 | mahesh    |    850000 |
+|    4 | balayya   |    980000 |
++------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> savepoint ins;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update movies set name='nani'where sno=1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from movies;
++------+---------+-----------+
+| sno  | name    | followers |
++------+---------+-----------+
+|    1 | nani    |    250000 |
+|    2 | prabhas |    650000 |
+|    3 | mahesh  |    850000 |
+|    4 | balayya |    980000 |
++------+---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> savepoint upd;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from movies where sno=4;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from movies;
++------+---------+-----------+
+| sno  | name    | followers |
++------+---------+-----------+
+|    1 | nani    |    250000 |
+|    2 | prabhas |    650000 |
+|    3 | mahesh  |    850000 |
++------+---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> savepoint del;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> rollback to upd;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from movies;
++------+---------+-----------+
+| sno  | name    | followers |
++------+---------+-----------+
+|    1 | nani    |    250000 |
+|    2 | prabhas |    650000 |
+|    3 | mahesh  |    850000 |
+|    4 | balayya |    980000 |
++------+---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> rollback to ini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from movies;
++------+-----------+-----------+
+| sno  | name      | followers |
++------+-----------+-----------+
+|    1 | alluarjun |    250000 |
+|    2 | prabhas   |    650000 |
+|    3 | mahesh    |    850000 |
++------+-----------+-----------+
+3 rows in set (0.00 sec)
