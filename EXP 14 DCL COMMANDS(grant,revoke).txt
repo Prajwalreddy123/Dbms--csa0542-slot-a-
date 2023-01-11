@@ -1,0 +1,90 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 32
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> use atm;
+Database changed
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++---------------+
+| Tables_in_atm |
++---------------+
+| atm           |
+| bank          |
+| movies        |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> desc movies;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| sno       | int(2)      | YES  |     | NULL    |       |
+| name      | varchar(10) | YES  |     | NULL    |       |
+| followers | int(10)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> create user praju;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> grant all on movies to praju;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show grants from praju;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from praju' at line 1
+mysql> show grants for praju;
++-------------------------------------------------------+
+| Grants for praju@%                                    |
++-------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'praju'@'%'                     |
+| GRANT ALL PRIVILEGES ON `atm`.`movies` TO 'praju'@'%' |
++-------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke all on movies from praju;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for praju;
++-----------------------------------+
+| Grants for praju@%                |
++-----------------------------------+
+| GRANT USAGE ON *.* TO 'praju'@'%' |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> grant select,update on bank to praju;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for praju;
++-----------------------------------------------------+
+| Grants for praju@%                                  |
++-----------------------------------------------------+
+| GRANT USAGE ON *.* TO 'praju'@'%'                   |
+| GRANT SELECT, UPDATE ON `atm`.`bank` TO 'praju'@'%' |
++-----------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke update on bank from praju;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for praju;
++---------------------------------------------+
+| Grants for praju@%                          |
++---------------------------------------------+
+| GRANT USAGE ON *.* TO 'praju'@'%'           |
+| GRANT SELECT ON `atm`.`bank` TO 'praju'@'%' |
++---------------------------------------------+
+2 rows in set (0.00 sec)
