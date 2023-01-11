@@ -1,0 +1,139 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 36
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> use atm;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_atm |
++---------------+
+| atm           |
+| bank          |
+| movies        |
+| student       |
++---------------+
+4 rows in set (0.00 sec)
+
+mysql> create table bookcompany(bookno int(2),bookname varchar(10),authorname varchar(10),cost int(4),edition int(2));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into bookcompany values(1,'probability','kumari',500,4);
+ERROR 1406 (22001): Data too long for column 'bookname' at row 1
+mysql> insert into bookcompany values(1,'m3','kumari',500,4);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into bookcompany values(2,'dbms','deepa',1500,7);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into bookcompany values(3,'se','sudha',2500,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into bookcompany values(4,'m2','vijya',2500,3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from bookcompany;
++--------+----------+------------+------+---------+
+| bookno | bookname | authorname | cost | edition |
++--------+----------+------------+------+---------+
+|      1 | m3       | kumari     |  500 |       4 |
+|      2 | dbms     | deepa      | 1500 |       7 |
+|      3 | se       | sudha      | 2500 |       5 |
+|      4 | m2       | vijya      | 2500 |       3 |
++--------+----------+------------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> update bookcompany set authorname='selav'where bookname='m3';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from bookcompany;
++--------+----------+------------+------+---------+
+| bookno | bookname | authorname | cost | edition |
++--------+----------+------------+------+---------+
+|      1 | m3       | selav      |  500 |       4 |
+|      2 | dbms     | deepa      | 1500 |       7 |
+|      3 | se       | sudha      | 2500 |       5 |
+|      4 | m2       | vijya      | 2500 |       3 |
++--------+----------+------------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> create table authors(authorsid int(4),authorname varchar(10),researcharea varchar(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into authors values(420,'swami','maths');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into authors values(421,'newton','physics');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into authors values(422,'srinivasan','algebra');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from authors;
++-----------+------------+--------------+
+| authorsid | authorname | researcharea |
++-----------+------------+--------------+
+|       420 | swami      | maths        |
+|       421 | newton     | physics      |
+|       422 | srinivasan | algebra      |
++-----------+------------+--------------+
+3 rows in set (0.01 sec)
+
+mysql> select authorname from bookcompany where bookname='m3';
++------------+
+| authorname |
++------------+
+| selav      |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select edition from bookcompany where bookname='m2';
++---------+
+| edition |
++---------+
+|       3 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> alter table bookcompany add publisheryear int(4);
+Query OK, 4 rows affected (0.04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> update bookcompany set publisheryear=1989 where bookno=1;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update bookcompany set publisheryear=1979 where bookno=2;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update bookcompany set publisheryear=1879 where bookno=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update bookcompany set publisheryear=1870 where bookno=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from bookcompany;
++--------+----------+------------+------+---------+---------------+
+| bookno | bookname | authorname | cost | edition | publisheryear |
++--------+----------+------------+------+---------+---------------+
+|      1 | m3       | selav      |  500 |       4 |          1989 |
+|      2 | dbms     | deepa      | 1500 |       7 |          1979 |
+|      3 | se       | sudha      | 2500 |       5 |          1879 |
+|      4 | m2       | vijya      | 2500 |       3 |          1870 |
++--------+----------+------------+------+---------+---------------+
+4 rows in set (0.00 sec)
