@@ -1,0 +1,145 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 41
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use atm;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_atm |
++---------------+
+| atm           |
+| authors       |
+| bank          |
+| bookcompany   |
+| doctor        |
+| hosiptal      |
+| movies        |
+| patient       |
+| student       |
++---------------+
+9 rows in set (0.00 sec)
+
+mysql> select*from patient;
++------+-------+------+--------+---------+
+| pid  | pname | age  | gender | disease |
++------+-------+------+--------+---------+
+|  405 | sai   |   20 | male   | fever   |
+|  406 | priya |   19 | female | cancer  |
+|  407 | sunny |   21 | male   | carona  |
+|  408 | sippy |   25 | male   | cold    |
++------+-------+------+--------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select*from doctor;
++------+---------+---------------+
+| did  | name    | specilazation |
++------+---------+---------------+
+|   20 | prbha   | mbbs          |
+|   21 | praveen | rmp           |
+|   22 | suresh  | dentist       |
++------+---------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select*from hosiptal;
++----------+---------+
+| hname    | sblocks |
++----------+---------+
+| saveetha |       2 |
+| general  |       5 |
+| mental   |       6 |
++----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table hosiptal add specilazation varchar(10);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> update hosiptal set specilazation='rmp' where hname='saveetha';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update hosiptal set specilazation='mbbs' where hname='mental';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update hosiptal set specilazation='cardialogist' where hname='general';
+ERROR 1406 (22001): Data too long for column 'specilazation' at row 2
+mysql> update hosiptal set specilazation='heart' where hname='general';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from hosiptal;
++----------+---------+---------------+
+| hname    | sblocks | specilazation |
++----------+---------+---------------+
+| saveetha |       2 | rmp           |
+| general  |       5 | heart         |
+| mental   |       6 | mbbs          |
++----------+---------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> update hosiptal set experience int(4);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int(4)' at line 1
+mysql> alter table hosiptal add experience int(4);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> update hosiptal set experience=5 where hname='saveetha';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update hosiptal set experience=8 where hname='general';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update hosiptal set experience=7 where hname='mental';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from hosiptal;
++----------+---------+---------------+------------+
+| hname    | sblocks | specilazation | experience |
++----------+---------+---------------+------------+
+| saveetha |       2 | rmp           |          5 |
+| general  |       5 | heart         |          8 |
+| mental   |       6 | mbbs          |          7 |
++----------+---------+---------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select hname,sbloks from hosiptal where experience=5;
+ERROR 1054 (42S22): Unknown column 'sbloks' in 'field list'
+mysql> select hname,sblocks from hosiptal where experience=5;
++----------+---------+
+| hname    | sblocks |
++----------+---------+
+| saveetha |       2 |
++----------+---------+
+1 row in set (0.00 sec)
+
+mysql> select pid,gender from patient where disease='fever';
++------+--------+
+| pid  | gender |
++------+--------+
+|  405 | male   |
++------+--------+
+1 row in set (0.00 sec)
+
+mysql> select did,name from where specilazation='mbbs';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where specilazation='mbbs'' at line 1
+mysql> select did,name from doctor where specilazation='mbbs';
++------+-------+
+| did  | name  |
++------+-------+
+|   20 | prbha |
++------+-------+
+1 row in set (0.00 sec)
