@@ -1,0 +1,283 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 45
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use atm;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_atm |
++---------------+
+| atm           |
+| authors       |
+| bank          |
+| bookcompany   |
+| car           |
+| carowner      |
+| doctor        |
+| hosiptal      |
+| movies        |
+| patient       |
+| student       |
++---------------+
+11 rows in set (0.00 sec)
+
+mysql> create table student1(sno int(2),regno int(10),name varchar(10),dbms int(4),se int(4),m2 int(4),m3 int(4));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc student1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sno   | int(2)      | YES  |     | NULL    |       |
+| regno | int(10)     | YES  |     | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
+| dbms  | int(4)      | YES  |     | NULL    |       |
+| se    | int(4)      | YES  |     | NULL    |       |
+| m2    | int(4)      | YES  |     | NULL    |       |
+| m3    | int(4)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+7 rows in set (0.02 sec)
+
+mysql> insert into student1 values(1,192111455,'prajwal',90,85,88,95);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student1 values(2,192110618,'ravi',90,86,98,90);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student1 values(3,192111452,'akhil',94,96,98,80);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into student1 values(4,192111138,'charith',79,90,91,80);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from student1;
++------+-----------+---------+------+------+------+------+
+| sno  | regno     | name    | dbms | se   | m2   | m3   |
++------+-----------+---------+------+------+------+------+
+|    1 | 192111455 | prajwal |   90 |   85 |   88 |   95 |
+|    2 | 192110618 | ravi    |   90 |   86 |   98 |   90 |
+|    3 | 192111452 | akhil   |   94 |   96 |   98 |   80 |
+|    4 | 192111138 | charith |   79 |   90 |   91 |   80 |
++------+-----------+---------+------+------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> create database student2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use atm;
+Database changed
+mysql> create table student2(stid int(4),stname varchar(10),factname varchar(10),experience int(4));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into student2 values(20,'sai','kumari',4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student2 values(21,'priya','deepa',5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student2 values(22,'mahi','eswar',15);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from student2;
++------+--------+----------+------------+
+| stid | stname | factname | experience |
++------+--------+----------+------------+
+|   20 | sai    | kumari   |          4 |
+|   21 | priya  | deepa    |          5 |
+|   22 | mahi   | eswar    |         15 |
++------+--------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_atm |
++---------------+
+| atm           |
+| authors       |
+| bank          |
+| bookcompany   |
+| car           |
+| carowner      |
+| doctor        |
+| hosiptal      |
+| movies        |
+| patient       |
+| student       |
+| student1      |
+| student2      |
++---------------+
+13 rows in set (0.00 sec)
+
+mysql> select regno,name from student1 where m3=90;
++-----------+------+
+| regno     | name |
++-----------+------+
+| 192110618 | ravi |
++-----------+------+
+1 row in set (0.00 sec)
+
+mysql> alter table student1 add grade varchar(2);
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> update student1 set grade='s' where m3=90;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student1 set grade='a' where m3>=85;
+Query OK, 2 rows affected (0.02 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> desc student1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sno   | int(2)      | YES  |     | NULL    |       |
+| regno | int(10)     | YES  |     | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
+| dbms  | int(4)      | YES  |     | NULL    |       |
+| se    | int(4)      | YES  |     | NULL    |       |
+| m2    | int(4)      | YES  |     | NULL    |       |
+| m3    | int(4)      | YES  |     | NULL    |       |
+| grade | varchar(2)  | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+8 rows in set (0.02 sec)
+
+mysql> select*from student1;
++------+-----------+---------+------+------+------+------+-------+
+| sno  | regno     | name    | dbms | se   | m2   | m3   | grade |
++------+-----------+---------+------+------+------+------+-------+
+|    1 | 192111455 | prajwal |   90 |   85 |   88 |   95 | a     |
+|    2 | 192110618 | ravi    |   90 |   86 |   98 |   90 | a     |
+|    3 | 192111452 | akhil   |   94 |   96 |   98 |   80 | NULL  |
+|    4 | 192111138 | charith |   79 |   90 |   91 |   80 | NULL  |
++------+-----------+---------+------+------+------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table student2 add factsalary int(4);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> update student2 set factsalary=100000 where experience=15;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student2 set factsalary=80000 where experience=5;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update student2 set factsalary=80000 where experience>=3;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 3  Changed: 2  Warnings: 0
+
+mysql> select*from student2;
++------+--------+----------+------------+------------+
+| stid | stname | factname | experience | factsalary |
++------+--------+----------+------------+------------+
+|   20 | sai    | kumari   |          4 |      80000 |
+|   21 | priya  | deepa    |          5 |      80000 |
+|   22 | mahi   | eswar    |         15 |      80000 |
++------+--------+----------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> update student2 set factsalary=100000 where experience=15;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from student2;
++------+--------+----------+------------+------------+
+| stid | stname | factname | experience | factsalary |
++------+--------+----------+------------+------------+
+|   20 | sai    | kumari   |          4 |      80000 |
+|   21 | priya  | deepa    |          5 |      80000 |
+|   22 | mahi   | eswar    |         15 |     100000 |
++------+--------+----------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select factname,experience where factsalary=100000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where factsalary=100000' at line 1
+mysql> select factname,experience from student2 where factsalary=100000;
++----------+------------+
+| factname | experience |
++----------+------------+
+| eswar    |         15 |
++----------+------------+
+1 row in set (0.00 sec)
+
+mysql> select regno,name from student1 where grade='a';
++-----------+---------+
+| regno     | name    |
++-----------+---------+
+| 192111455 | prajwal |
+| 192110618 | ravi    |
++-----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select max(experience) as maximum from student2;
++---------+
+| maximum |
++---------+
+|      15 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select min(experience) as minimum from student2;
++---------+
+| minimum |
++---------+
+|       4 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select*from student1 order by regno;
++------+-----------+---------+------+------+------+------+-------+
+| sno  | regno     | name    | dbms | se   | m2   | m3   | grade |
++------+-----------+---------+------+------+------+------+-------+
+|    2 | 192110618 | ravi    |   90 |   86 |   98 |   90 | a     |
+|    4 | 192111138 | charith |   79 |   90 |   91 |   80 | NULL  |
+|    3 | 192111452 | akhil   |   94 |   96 |   98 |   80 | NULL  |
+|    1 | 192111455 | prajwal |   90 |   85 |   88 |   95 | a     |
++------+-----------+---------+------+------+------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select*from student1 group by regno;
++------+-----------+---------+------+------+------+------+-------+
+| sno  | regno     | name    | dbms | se   | m2   | m3   | grade |
++------+-----------+---------+------+------+------+------+-------+
+|    2 | 192110618 | ravi    |   90 |   86 |   98 |   90 | a     |
+|    4 | 192111138 | charith |   79 |   90 |   91 |   80 | NULL  |
+|    3 | 192111452 | akhil   |   94 |   96 |   98 |   80 | NULL  |
+|    1 | 192111455 | prajwal |   90 |   85 |   88 |   95 | a     |
++------+-----------+---------+------+------+------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select*from student1 order by name;
++------+-----------+---------+------+------+------+------+-------+
+| sno  | regno     | name    | dbms | se   | m2   | m3   | grade |
++------+-----------+---------+------+------+------+------+-------+
+|    3 | 192111452 | akhil   |   94 |   96 |   98 |   80 | NULL  |
+|    4 | 192111138 | charith |   79 |   90 |   91 |   80 | NULL  |
+|    1 | 192111455 | prajwal |   90 |   85 |   88 |   95 | a     |
+|    2 | 192110618 | ravi    |   90 |   86 |   98 |   90 | a     |
++------+-----------+---------+------+------+------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select*from student1 having dbms>85;
++------+-----------+---------+------+------+------+------+-------+
+| sno  | regno     | name    | dbms | se   | m2   | m3   | grade |
++------+-----------+---------+------+------+------+------+-------+
+|    1 | 192111455 | prajwal |   90 |   85 |   88 |   95 | a     |
+|    2 | 192110618 | ravi    |   90 |   86 |   98 |   90 | a     |
+|    3 | 192111452 | akhil   |   94 |   96 |   98 |   80 | NULL  |
++------+-----------+---------+------+------+------+------+-------+
+3 rows in set (0.00 sec)
